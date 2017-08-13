@@ -2,12 +2,12 @@
 
 namespace Broarm\Silverstripe\OpeningHours;
 
-use DataObject;
-use FieldList;
-use ReadonlyField;
-use Tab;
-use TabSet;
-use TimeField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\ReadonlyField;
+use SilverStripe\Forms\Tab;
+use SilverStripe\Forms\TabSet;
+use SilverStripe\Forms\TimeField;
+use SilverStripe\ORM\DataObject;
 
 /**
  * Class OpeningHour
@@ -38,7 +38,7 @@ class OpeningHour extends DataObject
     private static $default_sort = 'Sort ASC';
 
     private static $has_one = array(
-        'Parent' => 'DataObject'
+        'Parent' => DataObject::class
     );
 
     private static $defaults = array(
@@ -225,7 +225,7 @@ class OpeningHour extends DataObject
     }
 
 
-    public function canView($member = null)
+    public function canView($member = null, $context = array())
     {
         if (!$this->Parent()) {
             return false;
@@ -233,7 +233,7 @@ class OpeningHour extends DataObject
         return $this->Parent()->canView($member);
     }
 
-    public function canEdit($member = null)
+    public function canEdit($member = null, $context = array())
     {
         if (!$this->Parent()) {
             return false;
@@ -241,7 +241,7 @@ class OpeningHour extends DataObject
         return $this->Parent()->canEdit($member);
     }
 
-    public function canDelete($member = null)
+    public function canDelete($member = null, $context = array())
     {
         if (!$this->Parent()) {
             return false;
@@ -249,7 +249,7 @@ class OpeningHour extends DataObject
         return $this->Parent()->canDelete($member);
     }
 
-    public function canCreate($member = null)
+    public function canCreate($member = null, $context = array())
     {
         if (!$this->Parent()) {
             return false;

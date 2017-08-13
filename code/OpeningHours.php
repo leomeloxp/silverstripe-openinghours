@@ -2,12 +2,13 @@
 
 namespace Broarm\Silverstripe\OpeningHours;
 
-use ArrayList;
-use DataExtension;
-use DataObject;
-use FieldList;
-use GridField;
-use LiteralField;
+use Broarm\Silverstripe\OpeningHours\OpeningHours;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\DataObject;
 
 /**
  * Class OpeningHours
@@ -20,7 +21,7 @@ class OpeningHours extends DataExtension
 {
 
     private static $has_many = array(
-        'OpeningHours' => 'Broarm\Silverstripe\OpeningHours\OpeningHour'
+        'OpeningHours' => OpeningHour::class
     );
 
     public function updateCMSFields(FieldList $fields)
