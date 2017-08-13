@@ -68,7 +68,7 @@ class OpeningHours extends DataExtension
      */
     public function getOpeningHoursToday()
     {
-        return OpeningHour::get_today();
+        return OpeningHour::getToday();
     }
 
 
@@ -86,7 +86,7 @@ class OpeningHours extends DataExtension
 
         while ($hours->valid()) {
             $current = $hours->current();
-            if ($prev && self::same_time($current, $prev)) {
+            if ($prev && self::sameTime($current, $prev)) {
                 $hoursOut->last()->addDay($current->getShortDay());
             } else {
                 $hoursOut->add($current);
@@ -106,7 +106,7 @@ class OpeningHours extends DataExtension
      * @param OpeningHour $b
      * @return bool
      */
-    private static function same_time(OpeningHour $a, OpeningHour $b)
+    private static function sameTime(OpeningHour $a, OpeningHour $b)
     {
         return $a->Till === $b->Till
             && $a->From === $b->From;

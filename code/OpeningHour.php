@@ -130,7 +130,7 @@ class OpeningHour extends DataObject
     public function getConcatenatedDays()
     {
         if (isset($this->concatenatedDays)) {
-            return self::concat_days(explode(', ', $this->concatenatedDays));
+            return self::concatDays(explode(', ', $this->concatenatedDays));
         } else {
             return $this->getShortDay();
         }
@@ -157,7 +157,7 @@ class OpeningHour extends DataObject
      * @param array $days
      * @return null|string
      */
-    private static function concat_days(array $days = [])
+    private static function concatDays(array $days = array())
     {
         if (count($days) > self::DAYS_AS_RANGE) {
             $last = end($days);
@@ -174,12 +174,12 @@ class OpeningHour extends DataObject
      *
      * @return bool
      */
-    public function IsOpenNow()
+    public function isOpenNow()
     {
-        if (!$this->IsClosed()) {
+        if (!$this->isClosed()) {
             $from = $this->From;
-            $till = self::after_midnight($this->Till);
-            $now = self::after_midnight(date('G:i:s', time()));
+            $till = self::afterMidnight($this->Till);
+            $now = self::afterMidnight(date('G:i:s', time()));
             return (bool)($now < $till) && ($now > $from);
         }
 
@@ -192,7 +192,7 @@ class OpeningHour extends DataObject
      *
      * @return bool
      */
-    public function IsClosed()
+    public function isClosed()
     {
         return (bool)($this->From === $this->Till);
     }
@@ -203,7 +203,7 @@ class OpeningHour extends DataObject
      *
      * @return OpeningHour|DataObject|null
      */
-    public static function get_today()
+    public static function getToday()
     {
         if ($today = self::get()->find('Day', date('l', time()))) {
             return $today;
@@ -219,7 +219,7 @@ class OpeningHour extends DataObject
      * @param $time
      * @return mixed
      */
-    private static function after_midnight($time)
+    private static function afterMidnight($time)
     {
         return $time < self::MIDNIGHT_THRESHOLD ? ($time + 24) : $time;
     }

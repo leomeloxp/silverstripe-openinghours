@@ -1,4 +1,4 @@
 ---
 Name: OpeningHours
-After: 'framework/*','cms/*'
+# After: 'framework/*','cms/*'
 ---
